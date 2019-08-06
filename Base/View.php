@@ -1,4 +1,6 @@
 <?php
+namespace Base;
+
 class View
 {
     protected $_data;
@@ -6,7 +8,6 @@ class View
     public function __set($name, $value)
     {
         $this->_data[$name] = $value;
-        $this->$name = $value;
     }
 
     public function __get($name)
@@ -21,6 +22,6 @@ class View
     {
         ob_start();
         include $tpl;
-        echo ob_get_clean();
+        return ob_get_clean();
     }
 }
