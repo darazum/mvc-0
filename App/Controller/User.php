@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 use Base\Controller as BaseController;
+use App\Model\User as userModel;
 
 class User extends BaseController
 {
@@ -20,6 +21,24 @@ class User extends BaseController
     public function registerAction()
     {
         $this->_render = false;
-        echo __METHOD__;
+        $data['name'] = $_GET['name'] ?? '';
+        $data['email'] = $_GET['email'] ?? '';
+        $data['password'] = $_GET['password'] ?? '';
+
+        $model = new userModel();
+        $model->loadData($data, true);
+
+        if (!$model->check($error)) {
+            echo $error;
+            return;
+        }
+
+        if ($model->save()) {
+            echo 'ok';
+            return;
+        }
+
+        echo 'not ok';
+
     }
 }

@@ -1,20 +1,17 @@
 <?php
 namespace App\Controller;
+use Base\Context;
 use Base\Controller as BaseController;
+use App\Model\User;
 
 class Index extends BaseController
 {
-    /** @var View */
-    public $view;
-
-    public function preAction()
-    {
-        $this->view->userModel = new \App\Model\modelUser();
-    }
-
     public function indexAction()
     {
-        $this->view->userModel = new \App\Model\modelUser();
+        $users = User::getList([3,4,5,6,7]);
+        $this->view->users = $users;
+
+        echo Context::i()->getDb()->getLogHTML();
     }
 
     public function mainAction()
